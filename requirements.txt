@@ -1,0 +1,6 @@
+aiohttp
+aiofiles
+pytelegrambotapi
+python-dotenv
+fastapi[standard]
+pydantic_collections
