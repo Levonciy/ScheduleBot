@@ -18,6 +18,30 @@ async def get_teachers():
         async with session.get("getTeachers") as req:
             await __check(req)
             return Types.OptionCollection.model_validate((await req.json())["teachers"])
+
+async def get_subjects():
+    async with aiohttp.ClientSession(base_url=context.API_ENDPOINT) as session:
+        async with session.get("getSubjects") as req:
+            await __check(req)
+            return Types.OptionCollection.model_validate((await req.json())["subjects"])
+
+async def get_classrooms():
+    async with aiohttp.ClientSession(base_url=context.API_ENDPOINT) as session:
+        async with session.get("getClassrooms") as req:
+            await __check(req)
+            return Types.OptionCollection.model_validate((await req.json())["classrooms"])
+        
+async def get_periods():
+    async with aiohttp.ClientSession(base_url=context.API_ENDPOINT) as session:
+        async with session.get("getPeriods") as req:
+            await __check(req)
+            return Types.PeriodCollection.model_validate((await req.json())["periods"])
+        
+async def get_blocks():
+    async with aiohttp.ClientSession(base_url=context.API_ENDPOINT) as session:
+        async with session.get("getBlocks") as req:
+            await __check(req)
+            return Types.OptionCollection.model_validate((await req.json())["blocks"])
     
 async def get_class(id: int | str):
     async with aiohttp.ClientSession(base_url=context.API_ENDPOINT) as session:
