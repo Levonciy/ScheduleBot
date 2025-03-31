@@ -374,9 +374,9 @@ async def update_overrides(info: Types.OverrideUpdateInfo):
                                     exclude.append(same_teacher)
                                     period_text += \
                                         f"\n<b>Заменен кабинет</b>" + \
-                                        (f"\n<b>Предмет:</b> {find(subjects, same_subject.subject_id)}" if same_subject.subject_id else f"\n<b>Мероприятие:</b> {find(events, same_subject.event_id)}") + \
-                                        f"\n<b>Учитель:</b> {find(teachers, same_subject.teacher_id)}" + \
-                                        f"\n<b>Кабинет:</b> {find(classrooms, same_subject.classroom_id)}" + (f" (вместо {find(classrooms, lesson.classroom_id)})" if lesson.classroom_id != same_subject.classroom_id else "") + "\n"
+                                        (f"\n<b>Предмет:</b> {find(subjects, same_teacher.subject_id)}" if same_teacher.subject_id else f"\n<b>Мероприятие:</b> {find(events, same_teacher.event_id)}") + \
+                                        f"\n<b>Учитель:</b> {find(teachers, same_teacher.teacher_id)}" + \
+                                        f"\n<b>Кабинет:</b> {find(classrooms, same_teacher.classroom_id)}" + (f" (вместо {find(classrooms, lesson.classroom_id)})" if lesson.classroom_id != same_teacher.classroom_id else "") + "\n"
                             else:
                                 same_subject = same_subject_now[0]
                                 exclude.append(same_subject)
@@ -446,14 +446,12 @@ async def update_overrides(info: Types.OverrideUpdateInfo):
             await report_class_subscribers(
                 cl, 
                 f"<b>Удалено обычное расписание для класса {class_obj.name}</b>\n\n"
-                f"<b>Период:</b> {global_period.name} ({global_period.start_time.strftime("%d.%m.%Y")} - {global_period.end_time.strftime("%d.%m.%Y")})\n"
-                f"<b>День:</b> {const.WEEKDAYS[int(info.day)]}\n\n"
+                f"<b>День:</b> {info.day}\n\n"
             )
         elif cl not in b_classes and cl in n_classes:
             await report_class_subscribers(
                 cl, 
                 f"<b>Добавлено обычное расписание для класса {class_obj.name}</b>\n\n"
-                f"<b>Период:</b> {global_period.name} ({global_period.start_time.strftime("%d.%m.%Y")} - {global_period.end_time.strftime("%d.%m.%Y")})\n"
-                f"<b>День:</b> {const.WEEKDAYS[int(info.day)]}\n\n"
+                f"<b>День:</b> {info.day}\n\n"
             )
     
