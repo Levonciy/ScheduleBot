@@ -1,9 +1,11 @@
 import asyncio
 import logging
 import os
+from rich.console import Console
 
 from dotenv import load_dotenv
 from telebot.async_telebot import AsyncTeleBot
+from telebot import ExceptionHandler
 
 import files_helper
 import Types
@@ -24,6 +26,8 @@ global_logger = logging.getLogger("Global")
 
 config: Types.Config
 
+c = Console()
+
 async def load_config():
     global config
     
@@ -35,5 +39,9 @@ async def save_config():
 
 loop = asyncio.new_event_loop()
 
-bot: AsyncTeleBot = AsyncTeleBot(os.environ["bot"], parse_mode="HTML")
+class Handler(ExceptionHandler):
+    def handle(self, exception):
+        c.print_exception(show_locals=True)
+
+bot: AsyncTeleBot = AsyncTeleBot(os.environ["bot"], parse_mode="HTML", exception_handler=Handler())
 API_ENDPOINT = os.environ["API_ENDPOINT"]
