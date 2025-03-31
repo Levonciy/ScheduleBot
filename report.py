@@ -357,8 +357,8 @@ async def update_overrides(info: Types.OverrideUpdateInfo):
                                     f"\n<b>Учитель:</b> {find(teachers, lesson.teacher_id)}" + \
                                     f"\n<b>Кабинет:</b> {find(classrooms, lesson.classroom_id)}\n"
                         else:
-                            same_subject_before = list(filter(lambda a: lesson.subject_id == a.subject_id or lesson.event_id == a.event_id, bb))
-                            same_subject_now = list(filter(lambda a: lesson.subject_id == a.subject_id or lesson.event_id == a.event_id, nn))
+                            same_subject_before = list(filter(lambda a: lesson.subject_id == a.subject_id and lesson.event_id == a.event_id, bb))
+                            same_subject_now = list(filter(lambda a: lesson.subject_id == a.subject_id and lesson.event_id == a.event_id, nn))
                             if len(same_subject_before) != 1 or len(same_subject_now) != 1:
                                 same_teacher_before = list(filter(lambda a: lesson.teacher_id == a.teacher_id, same_subject_before))
                                 same_teacher_now = list(filter(lambda a: lesson.teacher_id == a.teacher_id, same_subject_now))
