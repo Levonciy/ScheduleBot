@@ -12,6 +12,10 @@ app = FastAPI()
 @app.post("/updateSchedule")
 async def update_schedule(info: Types.ScheduleUpdateInfo):
     loop.create_task(report.update_schedule(info))
+    
+@app.post("/updateOverrides")
+async def update_overrides(info: Types.OverrideUpdateInfo):
+    loop.create_task(report.update_overrides(info))
 
 loop = context.loop
 server = uvicorn.Server(uvicorn.Config(app, "0.0.0.0", 8002))

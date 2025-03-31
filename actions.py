@@ -25,6 +25,12 @@ async def get_subjects():
             await __check(req)
             return Types.OptionCollection.model_validate((await req.json())["subjects"])
 
+async def get_events():
+    async with aiohttp.ClientSession(base_url=context.API_ENDPOINT) as session:
+        async with session.get("getEvents") as req:
+            await __check(req)
+            return Types.OptionCollection.model_validate((await req.json())["events"])
+
 async def get_classrooms():
     async with aiohttp.ClientSession(base_url=context.API_ENDPOINT) as session:
         async with session.get("getClassrooms") as req:

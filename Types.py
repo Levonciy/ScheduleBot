@@ -48,3 +48,19 @@ class ScheduleUpdateInfo(BaseModel):
     now: List[ScheduleUpdateEntry]
     day: str
     period: str
+        
+class OverrideUpdateEntry(BaseModel):
+    class_id: int
+    period: int
+    teacher_id: int
+    subject_id: int | None
+    classroom_id: int | None
+    block_id: int | None
+    block_part_id: int | None
+    profile_id: int | None
+    event_id: int | None
+        
+class OverrideUpdateInfo(BaseModel):
+    before: List[OverrideUpdateEntry]
+    now: List[OverrideUpdateEntry]
+    day: str
